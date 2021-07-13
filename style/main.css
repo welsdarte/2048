@@ -532,7 +532,8 @@ hr {
 
 .game-explanation {
   margin-top: 50px; }
-
+.prestiges-container {
+  margin-top: 150px;}
 @media screen and (max-width: 520px) {
   html, body {
     font-size: 15px; }

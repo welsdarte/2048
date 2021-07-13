@@ -4,13 +4,18 @@ function HTMLActuator() {
   this.bestContainer    = document.querySelector(".best-container");
   this.messageContainer = document.querySelector(".game-message");
 
-  this.moneyContainer = document.querySelector(".amount");
-  this.money = 31;
-  this.moneyPerSecond = 9;
+  this.moneyContainer = document.querySelector(".money-container");
+  this.moneyAmount = document.querySelector(".amount");
+  this.amountPerSec = document.querySelector(".amountPerSec")
+
+  this.money = 0;
+  this.moneyPerSecond = 0;
   
   this.score = 0;
 }
 var parallelJob = null;
+var interval = 1000/60;
+
 HTMLActuator.prototype.actuate = function (grid, metadata) {
   var self = this;
   
@@ -33,15 +38,19 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
       }
     }
     if(parallelJob !== null)clearInterval(parallelJob);
-    parallelJob = setInterval(function(){self.updateMoney(metadata.grid);}, 1000);
+    parallelJob = setInterval(function(){self.updateMoney(metadata.grid);}, interval);
   });
 };
 
 HTMLActuator.prototype.updateMoney = function (grid) {
-  this.moneyPerSecond = grid.getBiggestCell();
-  this.money += this.moneyPerSecond;
-  this.moneyContainer.textContent = this.money;
-  console.log("grid", grid);
+  //this.moneyPerSecond = grid.getOccupiedCellCount(); // 1
+  this.moneyPerSecond = grid.getSumOfCells(); // 2
+  //this.moneyPerSecond = grid.getBiggestCell() * grid.getSumOfCells();
+  this.money += this.moneyPerSecond / interval;
+
+  this.moneyAmount.textContent = this.money.toFixed(0);
+  this.amountPerSec.textContent = "+"+this.moneyPerSecond+"/s";
+  
 };
 // Continues the game (both restart and keep playing)
 HTMLActuator.prototype.continueGame = function () {

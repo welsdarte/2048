@@ -41,7 +41,10 @@ Grid.prototype.randomAvailableCell = function () {
     return cells[Math.floor(Math.random() * cells.length)];
   }
 };
-
+//Find occupied cell count
+Grid.prototype.getOccupiedCellCount = function () {
+  return 16 - this.availableCells().length;
+}
 // Find the sum off all cells
 Grid.prototype.getSumOfCells = function () {
   var result = 0;
