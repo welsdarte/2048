@@ -4,13 +4,16 @@ function HTMLActuator() {
   this.bestContainer    = document.querySelector(".best-container");
   this.messageContainer = document.querySelector(".game-message");
 
-  this.money = document.querySelector(".money-container");
+  this.moneyContainer = document.querySelector(".amount");
+  this.money = 31;
+  this.moneyPerSecond = 9;
+  
   this.score = 0;
 }
-
+var parallelJob = null;
 HTMLActuator.prototype.actuate = function (grid, metadata) {
   var self = this;
-
+  
   window.requestAnimationFrame(function () {
     self.clearContainer(self.tileContainer);
 
@@ -22,8 +25,6 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
       });
     });
 
-    
-
     if (metadata.terminated) {
       if (metadata.over) {
         self.message(false); // You lose
@@ -31,10 +32,17 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
         self.message(true); // You win!
       }
     }
-
+    if(parallelJob !== null)clearInterval(parallelJob);
+    parallelJob = setInterval(function(){self.updateMoney(metadata.grid);}, 1000);
   });
 };
 
+HTMLActuator.prototype.updateMoney = function (grid) {
+  this.moneyPerSecond = grid.getBiggestCell();
+  this.money += this.moneyPerSecond;
+  this.moneyContainer.textContent = this.money;
+  console.log("grid", grid);
+};
 // Continues the game (both restart and keep playing)
 HTMLActuator.prototype.continueGame = function () {
   this.clearMessage();

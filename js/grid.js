@@ -52,7 +52,18 @@ Grid.prototype.getSumOfCells = function () {
     }
   });
   return result;
-} 
+}
+// Find the biggest cell value on board
+Grid.prototype.getBiggestCell = function () {
+  var MAX = -1;
+  this.eachCell(function (x, y, tile) {
+    if(tile){
+      if(tile.value > MAX)MAX = tile.value;
+    }
+  })
+  console.log("MAX",MAX);
+  return MAX;
+}
 
 Grid.prototype.availableCells = function () {
   var cells = [];

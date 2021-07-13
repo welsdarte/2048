@@ -82,6 +82,7 @@ GameManager.prototype.actuate = function () {
   }
 
   this.grid.getSumOfCells();
+  this.grid.getBiggestCell();
 
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {
@@ -95,7 +96,8 @@ GameManager.prototype.actuate = function () {
     over:       this.over,
     won:        this.won,
     bestScore:  this.storageManager.getBestScore(),
-    terminated: this.isGameTerminated()
+    terminated: this.isGameTerminated(),
+    grid: this.grid,
   });
 
 };
