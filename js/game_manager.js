@@ -10,6 +10,9 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
+  ////
+  this.
+
   this.setup();
 }
 
@@ -80,9 +83,6 @@ GameManager.prototype.actuate = function () {
   if (this.storageManager.getBestScore() < this.score) {
     this.storageManager.setBestScore(this.score);
   }
-
-  this.grid.getSumOfCells();
-  this.grid.getBiggestCell();
 
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {

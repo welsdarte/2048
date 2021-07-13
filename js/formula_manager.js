@@ -1,7 +1,8 @@
-function FormulaManager () {
+function FormulaManager (grid) {
     this.formula = {
         description : "",
     }
+    this.grid = grid;
 }
 
 
