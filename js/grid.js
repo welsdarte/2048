@@ -43,7 +43,16 @@ Grid.prototype.randomAvailableCell = function () {
 };
 
 // Find the sum off all cells
-
+Grid.prototype.getSumOfCells = function () {
+  var result = 0;
+  this.eachCell(function (x, y, tile) {
+    if(tile){
+      result += tile.value;
+      console.log("result", result);
+    }
+  });
+  return result;
+} 
 
 Grid.prototype.availableCells = function () {
   var cells = [];

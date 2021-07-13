@@ -22,8 +22,7 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
       });
     });
 
-    self.updateScore(metadata.score);
-    self.updateBestScore(metadata.bestScore);
+    
 
     if (metadata.terminated) {
       if (metadata.over) {
@@ -42,9 +41,14 @@ HTMLActuator.prototype.continueGame = function () {
 };
 
 HTMLActuator.prototype.clearContainer = function (container) {
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
+  try {
+    while (container.firstChild) {
+      container.removeChild(container.firstChild);
+    }
+  } catch (error) {
+    console.log(error)
   }
+  
 };
 
 HTMLActuator.prototype.addTile = function (tile) {
@@ -104,26 +108,26 @@ HTMLActuator.prototype.positionClass = function (position) {
   return "tile-position-" + position.x + "-" + position.y;
 };
 
-HTMLActuator.prototype.updateScore = function (score) {
-  this.clearContainer(this.scoreContainer);
+// HTMLActuator.prototype.updateScore = function (score) {
+//   this.clearContainer(this.scoreContainer);
 
-  var difference = score - this.score;
-  this.score = score;
+//   var difference = score - this.score;
+//   this.score = score;
 
-  this.scoreContainer.textContent = this.score;
+//   this.scoreContainer.textContent = this.score;
 
-  if (difference > 0) {
-    var addition = document.createElement("div");
-    addition.classList.add("score-addition");
-    addition.textContent = "+" + difference;
+//   if (difference > 0) {
+//     var addition = document.createElement("div");
+//     addition.classList.add("score-addition");
+//     addition.textContent = "+" + difference;
 
-    this.scoreContainer.appendChild(addition);
-  }
-};
+//     this.scoreContainer.appendChild(addition);
+//   }
+// };
 
-HTMLActuator.prototype.updateBestScore = function (bestScore) {
-  this.bestContainer.textContent = bestScore;
-};
+// HTMLActuator.prototype.updateBestScore = function (bestScore) {
+//   this.bestContainer.textContent = bestScore;
+// };
 
 HTMLActuator.prototype.message = function (won) {
   var type    = won ? "game-won" : "game-over";

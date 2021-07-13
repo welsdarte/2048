@@ -81,6 +81,8 @@ GameManager.prototype.actuate = function () {
     this.storageManager.setBestScore(this.score);
   }
 
+  this.grid.getSumOfCells();
+
   // Clear the state when the game is over (game over only, not win)
   if (this.over) {
     this.storageManager.clearGameState();
