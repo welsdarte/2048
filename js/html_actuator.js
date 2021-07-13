@@ -4,6 +4,7 @@ function HTMLActuator() {
   this.bestContainer    = document.querySelector(".best-container");
   this.messageContainer = document.querySelector(".game-message");
 
+  this.money = document.querySelector(".money-container");
   this.score = 0;
 }
 
