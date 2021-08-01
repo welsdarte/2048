@@ -15,7 +15,7 @@ function HTMLActuator() {
 }
 var parallelJob = null;
 var interval = 1000/60;
-
+  
 HTMLActuator.prototype.actuate = function (grid, metadata) {
   var self = this;
   

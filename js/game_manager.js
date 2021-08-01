@@ -11,7 +11,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
 
   ////
-  this.
+  this.startingBlock = 2; // first prestige layer currency
 
   this.setup();
 }
@@ -20,7 +20,9 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
 GameManager.prototype.restart = function () {
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
+  this.startingBlock += 1;
   this.setup();
+  
 };
 
 // Keep playing after winning (allows going over 2048)
@@ -71,12 +73,23 @@ GameManager.prototype.addStartTiles = function () {
 // Adds a tile in a random position
 GameManager.prototype.addRandomTile = function () {
   if (this.grid.cellsAvailable()) {
-    var value = Math.random() < 0.9 ? 2 : 4;
+    var value = this.getStartingBlock();
     var tile = new Tile(this.grid.randomAvailableCell(), value);
 
     this.grid.insertTile(tile);
   }
 };
+var babyBlockChance = 0.9;
+GameManager.prototype.getStartingBlock = function () {
+  var randomVal = Math.random();
+  
+  if(randomVal < babyBlockChance){
+    return this.startingBlock;
+  }else{
+    return this.startingBlock * 2; // multiplier
+  }
+  
+} 
 
 // Sends the updated grid to the actuator
 GameManager.prototype.actuate = function () {
